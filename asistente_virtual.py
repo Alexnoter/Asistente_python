@@ -72,12 +72,26 @@ def hablar(mensaje):
     # encender el motor de pyttsx3 engine por estandar motor
     engine =pyttsx3.init()
 
+    #le decimos con que voz de asistente queremos escuchar
+    engine.setProperty('voices', id2)
+
     # pronunciar mensaje say = decir
     engine.say(mensaje)
     engine.runAndWait()
 
 
-hablar("hola mundo")
+'''
+con esto sabremos cuantas voces tengo en el dispositivo
+
+engine = pyttsx3.init()
+for voz in engine.getProperty('voices'):
+    print(voz)
+'''
 
 
+#le estamos dando todas las direccion de las voces
+id1 = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_ES-ES_HELENA_11.0'
+id2 = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0'
 
+
+hablar('today you are')
