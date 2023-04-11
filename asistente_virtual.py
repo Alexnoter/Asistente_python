@@ -10,6 +10,22 @@ import wikipedia
 
 
 
+#opciones de voz / idiomas
+'''
+con esto sabremos cuantas voces tengo en el dispositivo
+
+engine = pyttsx3.init()
+for voz in engine.getProperty('voices'):
+    print(voz)
+'''
+#le estamos dando todas las direccion de las voces
+id1 = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_ES-ES_HELENA_11.0'
+id2 = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0'
+
+
+
+
+
 
 #escuchar nuestro microfono y devolver en audio como texto
 def transformar_audio_en_texto():
@@ -80,18 +96,30 @@ def hablar(mensaje):
     engine.runAndWait()
 
 
-'''
-con esto sabremos cuantas voces tengo en el dispositivo
 
-engine = pyttsx3.init()
-for voz in engine.getProperty('voices'):
-    print(voz)
-'''
+#informar el dia de la semana
+def pedir_dia():
+
+    # Crear la variable con datos de hoy
+    dia = datetime.date.today()
+    print(dia)
+
+    # Crear variables para el dia de la semana
+    dia_semana = dia.weekday()
+    print(dia_semana)
+
+    #diccionario con nombres de los dias
+    calendario = {0: 'Lunes',
+                  1: 'Martes',
+                  2: 'Miércoles',
+                  3: 'Jueves',
+                  4: 'Viernes',
+                  5: 'Sábado',
+                  6: 'Domingo'}
+
+    # Decir el dia de la semana
+    hablar(f'Hoy es {calendario[dia_semana]}')
 
 
-#le estamos dando todas las direccion de las voces
-id1 = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_ES-ES_HELENA_11.0'
-id2 = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0'
+pedir_dia()
 
-
-hablar('today you are')
