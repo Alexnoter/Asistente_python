@@ -47,7 +47,7 @@ def transformar_audio_en_texto():
 
         try:
             #buscar en google
-            pedido = r.recognize_google(audio, language="es-ar")
+            pedido = r.recognize_google(audio, language="es-bo")
 
             #prueba de que entendio lo que le dijimos
             print("dijiste: " + pedido)
@@ -151,5 +151,40 @@ def saludo_inicial():
     #saludo
     hablar(f'{momento}, soy helena, tu asistente personal. porfavor dime en que te puedo ayudar')
 
-saludo_inicial()
+
+
+
+#la funcion central del asistente
+def pedir_cosas():
+
+    #activar el saludo inicial
+    saludo_inicial()
+
+    # variable de corte
+    comenzar = True
+
+    # loop central
+    while comenzar:
+
+        # activar el micro y guardar el pedido en un string
+        pedido = transformar_audio_en_texto().lower()
+
+        if 'abrir youtube' in pedido:
+            hablar('con gusto estoy abriendo youtube')
+            webbrowser.open('https://www.youtube.com')
+            continue
+
+        elif 'abrir navegador' in pedido:
+            hablar('claro, estoy en eso')
+            webbrowser.open('https://www.google.com')
+            continue
+        elif 'qué día es hoy' in pedido:
+            pedir_dia()
+            continue
+        elif 'dime la hora' in pedido:
+            pedir_hora()
+            continue
+
+
+pedir_cosas()
 
