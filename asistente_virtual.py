@@ -208,9 +208,9 @@ def pedir_cosas():
             continue
         elif 'precio de las acciones' in pedido:
             accion = pedido.split('de')[-1].strip() #strip elimina los espacios en blanco
-            cartera = {'apple': 'APPL',
-                       'amazon': 'AMZN',
-                       'google': 'GOOGL'}
+            cartera = {'apple':'APPL',
+                       'amazon':'AMZN',
+                       'google':'GOOGL'}
             try:
                 accion_buscada = cartera[accion]
                 accion_buscada = yf.Ticker(accion_buscada)
@@ -221,6 +221,9 @@ def pedir_cosas():
                 hablar('Perdon pero no la he encontrado')
                 continue
 
+        elif 'adiós' in pedido:
+            hablar('Me voy a descansar cualquier cosa me avisas')
+            break
 
 pedir_cosas()
 
