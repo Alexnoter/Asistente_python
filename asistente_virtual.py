@@ -1,7 +1,7 @@
 import pyttsx3  #para que nos pueda hablar
 import speech_recognition as sr      #para que nos escuche as es para abrebiar nombre
 import pywhatkit
-import yfinance
+import yfinance as yf
 import pyjokes
 import webbrowser
 import datetime
@@ -47,7 +47,7 @@ def transformar_audio_en_texto():
 
         try:
             #buscar en google
-            pedido = r.recognize_google(audio, language="es-bo")
+            pedido = r.recognize_google(audio, language="es-es")
 
             #prueba de que entendio lo que le dijimos
             print("dijiste: " + pedido)
@@ -184,6 +184,42 @@ def pedir_cosas():
         elif 'dime la hora' in pedido:
             pedir_hora()
             continue
+        elif 'busca en wikipedia' in pedido:
+            hablar('buscando eso en wikipedia')
+            pedido = pedido.replace('busca en wikipedia', '')
+            wikipedia.set_lang('es')
+            resultado = wikipedia.summary(pedido, sentences=1)
+            hablar('Wikipedia dice lo siguente: ')
+            hablar(resultado)
+            continue
+        elif 'busca en internet' in pedido:
+            hablar('ya mismo estoy en eso')
+            pedido = pedido.replace('busca en internet', '')
+            #esto es pa buscar en internet
+            pywhatkit.search(pedido)
+            hablar('esto es lo que encontre')
+            continue
+        elif 'reproducir' in pedido:
+            hablar('buena idea estoy en eso')
+            pywhatkit.playonyt(pedido)
+            continue
+        elif 'broma' in pedido:
+            hablar(pyjokes.get_joke('es'))
+            continue
+        elif 'precio de las acciones' in pedido:
+            accion = pedido.split('de')[-1].strip() #strip elimina los espacios en blanco
+            cartera = {'apple': 'APPL',
+                       'amazon': 'AMZN',
+                       'google': 'GOOGL'}
+            try:
+                accion_buscada = cartera[accion]
+                accion_buscada = yf.Ticker(accion_buscada)
+                precio_actual = accion_buscada.info['regularMarketPrice']
+                hablar(f'la encontre, el precio de {accion} es {precio_actual}')
+                continue
+            except:
+                hablar('Perdon pero no la he encontrado')
+                continue
 
 
 pedir_cosas()
